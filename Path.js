@@ -4,7 +4,7 @@ const DOWN = 2;
 const LEFT = 3;
 
 const MAX_TRIES = 20;
-const NUM_FRAMES = 5;
+const NUM_FRAMES = 2;
 
 class Path {
   constructor(maxLength, positionMatrix) {

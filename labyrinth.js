@@ -1,15 +1,16 @@
 let canvas = null;
 let ctx = null;
 
-let windowWidth = 60;
-let windowHeight = 60;
+let windowWidth = 170;
+let windowHeight = 170;
 
-const frameRate = 30;
+const frameRate = 10;
 
 const positionMatrix = [];
 
-const NUM_OF_PATHS = 10;
-let paths = null;
+const NUM_OF_PATHS = 4;
+const PATH_LENGTH = 40;
+let paths = [];
 
 function begin() {
   setup();
@@ -22,11 +23,11 @@ function setup() {
 
   ctx.canvas.width = windowWidth;
   ctx.canvas.height = windowHeight;
+  ctx.fillStyle = 'white';
   ctx.lineWidth = 4;
 
   setupPositionMatrix();
-
-  path = new Path(20, positionMatrix);
+  setupPaths();
 }
 
 function setupPositionMatrix() {
@@ -38,8 +39,14 @@ function setupPositionMatrix() {
   }
 }
 
+function setupPaths() {
+  for (let i = 0; i < NUM_OF_PATHS; i++) {
+    paths.push(new Path(PATH_LENGTH, positionMatrix));
+  }
+}
+
 function loop() {
-  ctx.clearRect(0, 0, windowWidth, windowHeight);
-  path.move();
-  path.draw();
+  ctx.fillRect(0, 0, windowWidth, windowHeight);
+  paths.forEach(path => path.move());
+  paths.forEach(path => path.draw());
 }
