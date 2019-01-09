@@ -2,14 +2,23 @@ const UP = 0;
 const RIGHT = 1;
 const DOWN = 2;
 const LEFT = 3;
+const UP_RIGHT = 4;
+const DOWN_RIGHT = 5;
+const DOWN_LEFT = 6;
+const UP_LEFT = 7;
 
 const MAX_TRIES = 20;
-const NUM_FRAMES = 2;
+const NUM_FRAMES = 5;
+
+const STRAIGHT = 0;
+const DIAGONAL = 1;
+const STRAIGHT_AND_DIAGONAL = 2;
 
 class Path {
-  constructor(maxLength, positionMatrix) {
+  constructor(maxLength, directions, positionMatrix) {
     this.maxLength = maxLength;
     this.positionMatrix = positionMatrix;
+    this.directions = directions;
 
     do {
       var startXPosition = Math.floor(Math.random()*this.positionMatrix.length);
@@ -42,7 +51,7 @@ class Path {
         let midX = this.getMidPosition(nextPosition.x, currentPosition.x);
         let midY = this.getMidPosition(nextPosition.y, currentPosition.y);
         ctx.moveTo(this.getScaledComponent(midX), this.getScaledComponent(midY));
-      } else if (this.getSquaredDistance(previousPosition, currentPosition) <= 1) {
+      } else if (this.getSquaredDistance(previousPosition, currentPosition) < 3) {
         if (i == this.maxLength - 1) {
           let midX = this.getMidPosition(currentPosition.x, previousPosition.x);
           let midY = this.getMidPosition(currentPosition.y, previousPosition.y);
@@ -97,7 +106,8 @@ class Path {
   }
 
   getNextRandomPosition(x, y) {
-    const direction = Math.floor(Math.random()*4);
+    const direction = this.getDirection();
+
     switch (direction) {
       case UP:
         y--;
@@ -111,8 +121,40 @@ class Path {
       case LEFT:
         x--;
         break;
+      case UP_RIGHT:
+        x++;
+        y--;
+        break;
+      case DOWN_RIGHT:
+        x++;
+        y++;
+        break;
+      case DOWN_LEFT:
+        x--;
+        y++;
+        break;
+      case UP_LEFT:
+        x--;
+        y--;
+        break;
     }
     return {x: x, y: y};
+  }
+
+  getDirection() {
+    let direction = 0;
+    switch (this.directions) {
+      case STRAIGHT:
+        direction = Math.floor(Math.random()*4);
+        break;
+      case DIAGONAL:
+        direction = Math.floor(Math.random()*4) + 4;
+        break;
+      case STRAIGHT_AND_DIAGONAL:
+        direction = Math.floor(Math.random()*8);
+        break;
+    }
+    return direction;
   }
 
   findAvalableRandomPosition() {

@@ -1,15 +1,15 @@
 let canvas = null;
 let ctx = null;
 
-let windowWidth = 110;
-let windowHeight = 110;
+let windowWidth = 400;
+let windowHeight = 400;
 
-const frameRate = 10;
+const frameRate = 60;
 
 const positionMatrix = [];
 
-const NUM_OF_PATHS = 3;
-const PATH_LENGTH = 25;
+const NUM_OF_PATHS = 4;
+const PATH_LENGTH = 200;
 let paths = [];
 
 function begin() {
@@ -41,7 +41,7 @@ function setupPositionMatrix() {
 
 function setupPaths() {
   for (let i = 0; i < NUM_OF_PATHS; i++) {
-    paths.push(new Path(PATH_LENGTH, positionMatrix));
+    paths.push(new Path(PATH_LENGTH, STRAIGHT, positionMatrix));
   }
 }
 
