@@ -4,7 +4,7 @@ let ctx = null;
 let windowWidth = 60;
 let windowHeight = 60;
 
-const frameRate = 4;
+const frameRate = 30;
 
 const positionMatrix = [];
 
