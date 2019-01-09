@@ -24,7 +24,7 @@ function setup() {
   ctx.canvas.width = windowWidth;
   ctx.canvas.height = windowHeight;
   ctx.fillStyle = 'white';
-  ctx.lineWidth = 4;
+  ctx.lineWidth = 2;
 
   setupPositionMatrix();
   setupPaths();

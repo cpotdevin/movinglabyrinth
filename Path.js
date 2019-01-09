@@ -51,7 +51,7 @@ class Path {
         let midX = this.getMidPosition(nextPosition.x, currentPosition.x);
         let midY = this.getMidPosition(nextPosition.y, currentPosition.y);
         ctx.moveTo(this.getScaledComponent(midX), this.getScaledComponent(midY));
-      } else if (this.getSquaredDistance(previousPosition, currentPosition) < 3) {
+      } else if (this.arePositionsConnected(currentPosition, previousPosition)) {
         if (i == this.maxLength - 1) {
           let midX = this.getMidPosition(currentPosition.x, previousPosition.x);
           let midY = this.getMidPosition(currentPosition.y, previousPosition.y);
@@ -69,6 +69,22 @@ class Path {
 
   getScaledComponent(value) {
     return 10 + value*10;
+  }
+
+  arePositionsConnected(pos1, pos2) {
+    let areConnected = false;
+    switch (this.directions) {
+      case STRAIGHT:
+        areConnected =  this.getSquaredDistance(pos1, pos2) == 1;
+        break;
+      case DIAGONAL:
+        areConnected = this.getSquaredDistance(pos1, pos2) == 2;
+        break;
+      case STRAIGHT_AND_DIAGONAL:
+        areConnected = this.getSquaredDistance(pos1, pos2) <= 2;
+        break;
+    }
+    return areConnected;
   }
 
   getSquaredDistance(pos1, pos2) {
