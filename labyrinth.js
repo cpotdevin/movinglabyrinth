@@ -1,15 +1,15 @@
 let canvas = null;
 let ctx = null;
 
-let windowWidth = 170;
-let windowHeight = 170;
+let windowWidth = 110;
+let windowHeight = 110;
 
 const frameRate = 10;
 
 const positionMatrix = [];
 
-const NUM_OF_PATHS = 4;
-const PATH_LENGTH = 40;
+const NUM_OF_PATHS = 3;
+const PATH_LENGTH = 25;
 let paths = [];
 
 function begin() {
